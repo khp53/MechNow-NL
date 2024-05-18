@@ -26,22 +26,27 @@ class NotificationPermission extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(
-                height: 40,
-              ),
+              const Spacer(),
               Center(
-                child: Lottie.asset('assets/lottie/notification.json'),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: Text(
-                  'You will get notified when your mechanic accepts your requests.',
-                  style: theme.textTheme.bodyMedium,
+                child: SizedBox(
+                  height: 300,
+                  child: Lottie.asset(
+                    'assets/lottie/notification.json',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               const Spacer(),
+              Center(
+                child: Text(
+                  'You will get notified when your mechanic accepts your requests.',
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodyMedium,
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: SizedBox(
