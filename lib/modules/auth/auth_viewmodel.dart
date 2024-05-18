@@ -55,11 +55,19 @@ class AuthViewmodel extends Viewmodel {
         role: role,
         childRole: childRole,
       );
+      var status = await Permission.notification.status;
       isLoading = false;
-      Get.to(
-        () => const NotificationPermission(),
-        transition: Transition.downToUp,
-      );
+      if (!status.isGranted) {
+        Get.to(
+          () => const NotificationPermission(),
+          transition: Transition.downToUp,
+        );
+      } else {
+        Get.to(
+          () => const HomeView(),
+          transition: Transition.downToUp,
+        );
+      }
     }
   }
 
