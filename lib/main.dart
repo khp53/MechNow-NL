@@ -33,10 +33,20 @@ class MyApp extends StatelessWidget {
             fontWeight: FontWeight.w700,
             color: Colors.black,
           ),
+          headlineSmall: TextStyle(
+            fontSize: 22.0,
+            fontWeight: FontWeight.w700,
+            color: Colors.black,
+          ),
           bodySmall: TextStyle(
-            fontSize: 16.0,
+            fontSize: 14.0,
             fontWeight: FontWeight.normal,
             color: Color(0xFFA1A6B0),
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.normal,
+            color: Colors.black,
           ),
         ),
         useMaterial3: false,

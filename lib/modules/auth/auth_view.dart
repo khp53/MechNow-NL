@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_user_app/modules/auth/auth_viewmodel.dart';
 import 'package:hackathon_user_app/modules/auth/widgets/login_body.dart';
+import 'package:hackathon_user_app/modules/auth/widgets/registration_body.dart';
 import 'package:hackathon_user_app/modules/view.dart';
 
 class AuthView extends StatelessWidget {
@@ -17,7 +18,9 @@ class AuthView extends StatelessWidget {
               ? LoginBody(
                   viewmodel: viewmodel,
                 )
-              : Container();
+              : RegistrationBody(
+                  viewmodel: viewmodel,
+                );
         },
       ),
     );

@@ -44,7 +44,7 @@ class CustomButton extends StatelessWidget {
               children: [
                 icon != null
                     ? Padding(
-                        padding: const EdgeInsets.only(right: 4),
+                        padding: const EdgeInsets.only(right: 8),
                         child: icon,
                       )
                     : Container(),
