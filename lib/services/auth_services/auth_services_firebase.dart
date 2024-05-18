@@ -97,6 +97,7 @@ class AuthServicesFirebase extends AuthServices {
           email: email, password: password);
       var userBox = await Hive.openBox('user');
       userBox.put('user_id', credential.user!.uid);
+      return credential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         customSnackBar(

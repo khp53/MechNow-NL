@@ -86,12 +86,22 @@ class LoginBody extends StatelessWidget {
               ),
               SizedBox(
                 width: double.infinity,
-                child: CustomButton(
-                  buttonColor: theme.colorScheme.primary,
-                  textColor: theme.colorScheme.onPrimary,
-                  buttonText: 'Login',
-                  onPressed: () {},
-                ),
+                child: viewmodel.isLoading
+                    ? CustomButton(
+                        loading: true,
+                        buttonColor: theme.colorScheme.primary,
+                        textColor: theme.colorScheme.onPrimary,
+                        buttonText: 'Login',
+                        onPressed: () {},
+                      )
+                    : CustomButton(
+                        buttonColor: theme.colorScheme.primary,
+                        textColor: theme.colorScheme.onPrimary,
+                        buttonText: 'Login',
+                        onPressed: () async {
+                          await viewmodel.loginUser();
+                        },
+                      ),
               ),
               const SizedBox(
                 height: 25,

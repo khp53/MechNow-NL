@@ -148,12 +148,21 @@ class RegistrationBody extends StatelessWidget {
                 ),
                 SizedBox(
                   width: double.infinity,
-                  child: CustomButton(
-                    buttonColor: theme.colorScheme.primary,
-                    textColor: theme.colorScheme.onPrimary,
-                    buttonText: 'Create account',
-                    onPressed: () async => await viewmodel.createUserAccount(),
-                  ),
+                  child: viewmodel.isLoading
+                      ? CustomButton(
+                          loading: true,
+                          buttonColor: theme.colorScheme.primary,
+                          textColor: theme.colorScheme.onPrimary,
+                          buttonText: 'Create account',
+                          onPressed: () {},
+                        )
+                      : CustomButton(
+                          buttonColor: theme.colorScheme.primary,
+                          textColor: theme.colorScheme.onPrimary,
+                          buttonText: 'Create account',
+                          onPressed: () async =>
+                              await viewmodel.createUserAccount(),
+                        ),
                 ),
                 const SizedBox(
                   height: 25,
