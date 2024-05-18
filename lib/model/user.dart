@@ -4,6 +4,7 @@ class Users {
   String? email;
   String? phone;
   String? role;
+  String? childRole;
   String? area;
 
   Users({
@@ -12,6 +13,7 @@ class Users {
     this.email,
     this.phone,
     this.role,
+    this.childRole,
     this.area,
   });
 
@@ -21,6 +23,7 @@ class Users {
     name = json['name'];
     phone = json['phone'];
     role = json['role'];
+    childRole = json['childRole'];
     area = json['area'];
   }
 
@@ -31,6 +34,7 @@ class Users {
     data['name'] = name;
     data['phone'] = phone;
     data['role'] = role;
+    data['childRole'] = childRole;
     data['area'] = area;
     return data;
   }
