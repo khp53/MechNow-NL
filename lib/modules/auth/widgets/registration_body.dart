@@ -87,42 +87,11 @@ class RegistrationBody extends StatelessWidget {
                 const SizedBox(
                   height: 12,
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surface,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: CustomBottomSheet(
-                    child: Column(
-                      children: [
-                        Text(
-                          'What are you? *',
-                          style: theme.textTheme.bodyMedium,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        ListTile(
-                          title: Text(
-                            'General User',
-                            style: theme.textTheme.bodyMedium,
-                          ),
-                        ),
-                        const Divider(),
-                        ListTile(
-                          title: Text(
-                            'Mechanic',
-                            style: theme.textTheme.bodyMedium,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 12,
-                ),
+                parentRole(theme),
+                // if (viewmodel.role == 'mechanic') then this will be visible
+                viewmodel.role == 'mechanic'
+                    ? mechanicRoles(theme)
+                    : const SizedBox(),
                 CustomTextFormField(
                   hintText: "Enter your email *",
                   isObscured: false,
@@ -263,6 +232,146 @@ class RegistrationBody extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Container parentRole(ThemeData theme) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: CustomBottomSheet(
+        child: Column(
+          children: [
+            Text(
+              'What are you? *',
+              style: theme.textTheme.bodyMedium,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            ListTile(
+              title: Text(
+                'General User',
+                style: theme.textTheme.bodyMedium,
+              ),
+              onTap: () => viewmodel.setRole('generalUser'),
+            ),
+            const Divider(),
+            ListTile(
+              title: Text(
+                'Mechanic',
+                style: theme.textTheme.bodyMedium,
+              ),
+              onTap: () => viewmodel.setRole('mechanic'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Column mechanicRoles(ThemeData theme) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(
+          height: 12,
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          decoration: BoxDecoration(
+            color: theme.colorScheme.surface,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: CustomBottomSheet(
+            child: Column(
+              children: [
+                Text(
+                  'What do you do? *',
+                  style: theme.textTheme.bodyMedium,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ListTile(
+                  title: Text(
+                    'Automobile Mechanic',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  onTap: () => viewmodel.setRole('automobileMechanic'),
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(
+                    'Locksmith',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  onTap: () => viewmodel.setRole('locksmith'),
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(
+                    'Plumber',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  onTap: () => viewmodel.setRole('plumber'),
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(
+                    'Roofer',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  onTap: () => viewmodel.setRole('roofer'),
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(
+                    'Electrician',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  onTap: () => viewmodel.setRole('electrician'),
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(
+                    'Heater Mechanic',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  onTap: () => viewmodel.setRole('heaterMechanic'),
+                ),
+                const Divider(),
+                ListTile(
+                  title: Text(
+                    'Carpenter',
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  onTap: () => viewmodel.setRole('carpenter'),
+                ),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 12,
+        ),
+        CustomTextFormField(
+          hintText: "Where are you located? *",
+          isObscured: false,
+          isDigit: false,
+          isRequired: true,
+          controller: viewmodel.passwordController,
+          validator: (p0) {
+            if (p0!.isEmpty && viewmodel.role == 'mechanic') {
+              return 'This field is required';
+            }
+            return null;
+          },
+        ),
+      ],
     );
   }
 }

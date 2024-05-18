@@ -1,11 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:hackathon_user_app/firebase_options.dart';
 import 'package:hackathon_user_app/modules/onboard/onboard_view.dart';
+import 'package:hackathon_user_app/dependencies/dependency_injection.dart'
+    as di;
+import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  di.init();
+  await Hive.initFlutter();
   runApp(const MyApp());
 }
 

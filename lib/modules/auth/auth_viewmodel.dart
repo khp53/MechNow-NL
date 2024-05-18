@@ -16,6 +16,21 @@ class AuthViewmodel extends Viewmodel {
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
 
+  String _role = '';
+  String _childRole = '';
+
+  String get role => _role;
+  setRole(String role) {
+    _role = role;
+    turnIdle();
+  }
+
+  String get childRole => _childRole;
+  setChildRole(String childRole) {
+    _childRole = childRole;
+    turnIdle();
+  }
+
   createUserAccount() async {
     if (formKey.currentState!.validate()) {
       await _authServices.createUserAccount(
