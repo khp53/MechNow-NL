@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hackathon_user_app/common/custom_button.dart';
 import 'package:hackathon_user_app/common/custom_text_field.dart';
 import 'package:hackathon_user_app/modules/auth/auth_viewmodel.dart';
+import 'package:hackathon_user_app/modules/notification/widget/notification_permission.dart';
 
 class RegistrationBody extends StatelessWidget {
   const RegistrationBody({super.key, required this.viewmodel});
@@ -142,7 +144,10 @@ class RegistrationBody extends StatelessWidget {
                     buttonColor: theme.colorScheme.primary,
                     textColor: theme.colorScheme.onPrimary,
                     buttonText: 'Create account',
-                    onPressed: () {},
+                    onPressed: () => Get.to(
+                      () => const NotificationPermission(),
+                      transition: Transition.downToUp,
+                    ),
                   ),
                 ),
                 const SizedBox(

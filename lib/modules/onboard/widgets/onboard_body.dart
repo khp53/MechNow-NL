@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import 'package:hackathon_user_app/common/custom_button.dart';
 import 'package:hackathon_user_app/modules/auth/auth_view.dart';
 import 'package:hackathon_user_app/modules/onboard/onboard_viewmodel.dart';
+import 'package:hackathon_user_app/utils/router.dart';
 
 class OnboardBody extends StatelessWidget {
   const OnboardBody({super.key, required this.viewmodel});
@@ -63,11 +63,10 @@ class OnboardBody extends StatelessWidget {
                   buttonColor: theme.colorScheme.primary,
                   textColor: theme.colorScheme.onPrimary,
                   buttonText: 'Login',
-                  onPressed: () => Get.to(
-                    () => const AuthView(
+                  onPressed: () => goTo(
+                    const AuthView(
                       isLogin: true,
                     ),
-                    transition: Transition.downToUp,
                   ),
                 ),
               ),
@@ -86,11 +85,10 @@ class OnboardBody extends StatelessWidget {
                   textColor: theme.colorScheme.onPrimary,
                   borderColor: theme.colorScheme.onPrimary,
                   buttonText: 'Create account',
-                  onPressed: () => Get.to(
-                    () => const AuthView(
+                  onPressed: () => goTo(
+                    const AuthView(
                       isLogin: false,
                     ),
-                    transition: Transition.downToUp,
                   ),
                 ),
               ),
