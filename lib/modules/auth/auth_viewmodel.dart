@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:hackathon_user_app/dependencies/dependency_injection.dart';
 import 'package:hackathon_user_app/modules/notification/widget/notification_permission.dart';
 import 'package:hackathon_user_app/modules/viewmodel.dart';
@@ -15,19 +16,22 @@ class AuthViewmodel extends Viewmodel {
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
+  TextEditingController areaController = TextEditingController();
 
-  String _role = '';
-  String _childRole = '';
+  String _role = 'Who are you? *';
+  String _childRole = 'What do you do? *';
 
   String get role => _role;
   setRole(String role) {
     _role = role;
+
     turnIdle();
   }
 
   String get childRole => _childRole;
   setChildRole(String childRole) {
     _childRole = childRole;
+    Get.back();
     turnIdle();
   }
 
@@ -38,8 +42,9 @@ class AuthViewmodel extends Viewmodel {
         password: passwordController.text,
         name: nameController.text,
         phoneNumber: phoneController.text,
-        area: 'area',
-        role: 'role',
+        area: areaController.text,
+        role: role,
+        childRole: childRole,
       );
       goTo(const NotificationPermission());
     }

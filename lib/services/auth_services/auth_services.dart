@@ -6,6 +6,7 @@ abstract class AuthServices {
     required String phoneNumber,
     required String area,
     required String role,
+    required String childRole,
   });
   signInWithEmailAndPassword(String email, String password);
   //Future<User> signInWithGoogle();

@@ -54,6 +54,7 @@ class AuthServicesFirebase extends AuthServices {
     required String phoneNumber,
     required String area,
     required String role,
+    required String childRole,
   }) async {
     var userBox = await Hive.openBox('user');
     UserCredential userCredential = await registerUser(email, password);
@@ -66,6 +67,7 @@ class AuthServicesFirebase extends AuthServices {
         phone: phoneNumber,
         area: area,
         role: role,
+        childRole: childRole,
       );
       await _db
           .collection('users')
@@ -73,6 +75,7 @@ class AuthServicesFirebase extends AuthServices {
           .set(user.toJson());
       userBox.put('area', area);
       userBox.put('role', role);
+      userBox.put('childRole', childRole);
       customSnackBar(
         title: 'Success!',
         message: 'Successfully created your account.',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:hackathon_user_app/common/custom_bottomsheet.dart';
 import 'package:hackathon_user_app/common/custom_button.dart';
 import 'package:hackathon_user_app/common/custom_text_field.dart';
@@ -92,6 +93,9 @@ class RegistrationBody extends StatelessWidget {
                 viewmodel.role == 'mechanic'
                     ? mechanicRoles(theme)
                     : const SizedBox(),
+                const SizedBox(
+                  height: 12,
+                ),
                 CustomTextFormField(
                   hintText: "Enter your email *",
                   isObscured: false,
@@ -129,7 +133,7 @@ class RegistrationBody extends StatelessWidget {
                   isObscured: true,
                   isDigit: false,
                   isRequired: true,
-                  controller: viewmodel.passwordController,
+                  controller: viewmodel.confirmPasswordController,
                   validator: (p0) {
                     if (p0!.isEmpty) {
                       return 'Confirm Password is required';
@@ -235,19 +239,20 @@ class RegistrationBody extends StatelessWidget {
     );
   }
 
-  Container parentRole(ThemeData theme) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: CustomBottomSheet(
-        child: Column(
+  Widget parentRole(ThemeData theme) {
+    return InkWell(
+      onTap: () => bottomSheet(
+        theme,
+        Column(
           children: [
+            const SizedBox(
+              height: 10,
+            ),
             Text(
-              'What are you? *',
-              style: theme.textTheme.bodyMedium,
+              'Who are you? *',
+              style: theme.textTheme.bodyMedium!.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(
               height: 10,
@@ -257,7 +262,10 @@ class RegistrationBody extends StatelessWidget {
                 'General User',
                 style: theme.textTheme.bodyMedium,
               ),
-              onTap: () => viewmodel.setRole('generalUser'),
+              onTap: () {
+                viewmodel.setRole('generalUser');
+                Get.back();
+              },
             ),
             const Divider(),
             ListTile(
@@ -265,7 +273,41 @@ class RegistrationBody extends StatelessWidget {
                 'Mechanic',
                 style: theme.textTheme.bodyMedium,
               ),
-              onTap: () => viewmodel.setRole('mechanic'),
+              onTap: () {
+                viewmodel.setRole('mechanic');
+                Get.back();
+              },
+            ),
+          ],
+        ),
+      ),
+      child: Container(
+        //height: 50,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 16,
+        ),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: const Color(0xFF828282),
+            width: 1,
+          ),
+        ),
+        child: Row(
+          children: [
+            Text(
+              viewmodel.role,
+              style: theme.textTheme.bodyMedium!.copyWith(
+                color: const Color(0xFF828282),
+              ),
+            ),
+            const Spacer(),
+            Icon(
+              Icons.arrow_drop_down,
+              color: theme.colorScheme.secondary,
             ),
           ],
         ),
@@ -280,76 +322,107 @@ class RegistrationBody extends StatelessWidget {
         const SizedBox(
           height: 12,
         ),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          decoration: BoxDecoration(
-            color: theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(8),
+        InkWell(
+          onTap: () => bottomSheet(
+            theme,
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text(
+                    'What do you do? *',
+                    style: theme.textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ListTile(
+                    title: Text(
+                      'Automobile Mechanic',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    onTap: () => viewmodel.setChildRole('automobileMechanic'),
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: Text(
+                      'Locksmith',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    onTap: () => viewmodel.setChildRole('locksmith'),
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: Text(
+                      'Plumber',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    onTap: () => viewmodel.setChildRole('plumber'),
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: Text(
+                      'Roofer',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    onTap: () => viewmodel.setChildRole('roofer'),
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: Text(
+                      'Electrician',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    onTap: () => viewmodel.setChildRole('electrician'),
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: Text(
+                      'Heater Mechanic',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    onTap: () => viewmodel.setChildRole('heaterMechanic'),
+                  ),
+                  const Divider(),
+                  ListTile(
+                    title: Text(
+                      'Carpenter',
+                      style: theme.textTheme.bodyMedium,
+                    ),
+                    onTap: () => viewmodel.setChildRole('carpenter'),
+                  ),
+                ],
+              ),
+            ),
           ),
-          child: CustomBottomSheet(
-            child: Column(
+          child: Container(
+            //height: 50,
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 16,
+            ),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surface,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: const Color(0xFF828282),
+                width: 1,
+              ),
+            ),
+            child: Row(
               children: [
                 Text(
-                  'What do you do? *',
-                  style: theme.textTheme.bodyMedium,
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ListTile(
-                  title: Text(
-                    'Automobile Mechanic',
-                    style: theme.textTheme.bodyMedium,
+                  viewmodel.childRole,
+                  style: theme.textTheme.bodyMedium!.copyWith(
+                    color: const Color(0xFF828282),
                   ),
-                  onTap: () => viewmodel.setRole('automobileMechanic'),
                 ),
-                const Divider(),
-                ListTile(
-                  title: Text(
-                    'Locksmith',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  onTap: () => viewmodel.setRole('locksmith'),
-                ),
-                const Divider(),
-                ListTile(
-                  title: Text(
-                    'Plumber',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  onTap: () => viewmodel.setRole('plumber'),
-                ),
-                const Divider(),
-                ListTile(
-                  title: Text(
-                    'Roofer',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  onTap: () => viewmodel.setRole('roofer'),
-                ),
-                const Divider(),
-                ListTile(
-                  title: Text(
-                    'Electrician',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  onTap: () => viewmodel.setRole('electrician'),
-                ),
-                const Divider(),
-                ListTile(
-                  title: Text(
-                    'Heater Mechanic',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  onTap: () => viewmodel.setRole('heaterMechanic'),
-                ),
-                const Divider(),
-                ListTile(
-                  title: Text(
-                    'Carpenter',
-                    style: theme.textTheme.bodyMedium,
-                  ),
-                  onTap: () => viewmodel.setRole('carpenter'),
+                const Spacer(),
+                Icon(
+                  Icons.arrow_drop_down,
+                  color: theme.colorScheme.secondary,
                 ),
               ],
             ),
@@ -363,7 +436,7 @@ class RegistrationBody extends StatelessWidget {
           isObscured: false,
           isDigit: false,
           isRequired: true,
-          controller: viewmodel.passwordController,
+          controller: viewmodel.areaController,
           validator: (p0) {
             if (p0!.isEmpty && viewmodel.role == 'mechanic') {
               return 'This field is required';
