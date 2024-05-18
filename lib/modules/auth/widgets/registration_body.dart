@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:hackathon_user_app/common/custom_bottomsheet.dart';
 import 'package:hackathon_user_app/common/custom_button.dart';
 import 'package:hackathon_user_app/common/custom_text_field.dart';
 import 'package:hackathon_user_app/modules/auth/auth_viewmodel.dart';
-import 'package:hackathon_user_app/modules/notification/widget/notification_permission.dart';
 
 class RegistrationBody extends StatelessWidget {
   const RegistrationBody({super.key, required this.viewmodel});
@@ -88,6 +87,42 @@ class RegistrationBody extends StatelessWidget {
                 const SizedBox(
                   height: 12,
                 ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: CustomBottomSheet(
+                    child: Column(
+                      children: [
+                        Text(
+                          'What are you? *',
+                          style: theme.textTheme.bodyMedium,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        ListTile(
+                          title: Text(
+                            'General User',
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                        ),
+                        const Divider(),
+                        ListTile(
+                          title: Text(
+                            'Mechanic',
+                            style: theme.textTheme.bodyMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
                 CustomTextFormField(
                   hintText: "Enter your email *",
                   isObscured: false,
@@ -144,10 +179,7 @@ class RegistrationBody extends StatelessWidget {
                     buttonColor: theme.colorScheme.primary,
                     textColor: theme.colorScheme.onPrimary,
                     buttonText: 'Create account',
-                    onPressed: () => Get.to(
-                      () => const NotificationPermission(),
-                      transition: Transition.downToUp,
-                    ),
+                    onPressed: () async => await viewmodel.createUserAccount(),
                   ),
                 ),
                 const SizedBox(
