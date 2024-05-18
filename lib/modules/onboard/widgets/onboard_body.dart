@@ -17,7 +17,7 @@ class OnboardBody extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 40.0),
+              padding: const EdgeInsets.only(top: 50.0),
               child: SizedBox(
                 width: double.infinity,
                 child: Image.asset(
@@ -48,9 +48,10 @@ class OnboardBody extends StatelessWidget {
               padding:
                   const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
               child: Text(
-                '"Need a quick fix? With APPNAME, you can find reliable mechanics near you, track their arrival in real-time, and get your vehicle serviced on the spot.',
+                '"Need a quick fix? With MechNow NL, you can find reliable mechanics near you, track their arrival in real-time, and get your vehicle serviced on the spot.',
                 style: theme.textTheme.bodySmall!.copyWith(
                   fontWeight: FontWeight.w700,
+                  fontSize: 15,
                 ),
               ),
             ),
