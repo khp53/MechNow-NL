@@ -73,6 +73,17 @@ class AuthServicesFirebase extends AuthServices {
           .set(user.toJson());
       userBox.put('area', area);
       userBox.put('role', role);
+      customSnackBar(
+        title: 'Success!',
+        message: 'Successfully created your account.',
+        bgColor: Colors.green,
+      );
+    } else {
+      customSnackBar(
+        title: 'Alert!',
+        message: 'Failed to create your account.',
+        bgColor: Colors.red,
+      );
     }
   }
 
