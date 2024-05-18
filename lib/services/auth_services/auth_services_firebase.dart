@@ -79,8 +79,8 @@ class AuthServicesFirebase extends AuthServices {
   @override
   signInWithEmailAndPassword(String email, String password) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      final credential = await _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
       var userBox = await Hive.openBox('user');
       userBox.put('user_id', credential.user!.uid);
     } on FirebaseAuthException catch (e) {
@@ -100,5 +100,10 @@ class AuthServicesFirebase extends AuthServices {
         debugPrint('Wrong password provided for that user.');
       }
     }
+  }
+
+  @override
+  signOut() async {
+    await _firebaseAuth.signOut();
   }
 }

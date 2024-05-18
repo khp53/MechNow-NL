@@ -9,5 +9,5 @@ abstract class AuthServices {
   });
   signInWithEmailAndPassword(String email, String password);
   //Future<User> signInWithGoogle();
-  //Future<void> signOut();
+  signOut();
 }
