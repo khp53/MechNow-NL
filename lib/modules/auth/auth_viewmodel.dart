@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hackathon_user_app/dependencies/dependency_injection.dart';
+import 'package:hackathon_user_app/modules/home/home_view.dart';
 import 'package:hackathon_user_app/modules/notification/widget/notification_permission.dart';
 import 'package:hackathon_user_app/modules/viewmodel.dart';
 import 'package:hackathon_user_app/services/auth_services/auth_services.dart';

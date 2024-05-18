@@ -29,7 +29,7 @@ class OnboardBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(20),
               child: Text(
-                'App Name',
+                'MechNow NL',
                 style: theme.textTheme.headlineMedium!.copyWith(
                   fontSize: 28,
                   fontWeight: FontWeight.w900,

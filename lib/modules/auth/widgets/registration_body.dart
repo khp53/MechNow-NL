@@ -25,7 +25,7 @@ class RegistrationBody extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 40),
                   child: Center(
                     child: Text(
-                      'App Name',
+                      'MechNow NL',
                       style: theme.textTheme.headlineMedium!.copyWith(
                         fontSize: 28,
                         fontWeight: FontWeight.w900,

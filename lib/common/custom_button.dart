@@ -63,7 +63,9 @@ class CustomButton extends StatelessWidget {
             height: 50,
             minWidth: MediaQuery.of(context).size.width,
             onPressed: () {},
-            color: borderColor != null ? buttonColor : Colors.grey,
+            color: borderColor != null
+                ? buttonColor
+                : const Color.fromARGB(255, 222, 222, 222),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
               side: borderColor != null
@@ -77,7 +79,9 @@ class CustomButton extends StatelessWidget {
               child: SizedBox(
                 height: 25,
                 width: 25,
-                child: CircularProgressIndicator(color: textColor),
+                child: CircularProgressIndicator(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ),
           );
