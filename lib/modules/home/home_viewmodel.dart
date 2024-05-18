@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_user_app/model/category.dart';
 import 'package:hackathon_user_app/modules/viewmodel.dart';
 
@@ -5,6 +6,7 @@ class HomeViewmodel extends Viewmodel {
   HomeViewmodel() {
     // Add your initialization code here
   }
+  static const kInitialPosition = LatLng(-33.8567844, 151.213108);
 
   List<CategoryModel> categories = [
     CategoryModel(

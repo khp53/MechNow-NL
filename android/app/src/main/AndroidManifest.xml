@@ -7,6 +7,11 @@
         android:label="MechNow NL"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyBqnVfSizkjnUTbX-VKIDQrkmLR0DKxwrQ"/>
+        <meta-data
+        android:name="com.google.android.gms.maps.preferred_renderer"
+        android:value="opengl" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
+import 'package:hackathon_user_app/modules/find_mechanic/find_mechanic_view.dart';
 import 'package:hackathon_user_app/modules/home/home_viewmodel.dart';
 
 class HomeBody extends StatelessWidget {
@@ -69,7 +73,33 @@ class HomeBody extends StatelessWidget {
                   var category = viewmodel.categories[index];
                   return GestureDetector(
                     onTap: () {
-                      //viewmodel.onMechanicSelected(mechanic);
+                      Get.to(
+                        () => PlacePicker(
+                          apiKey: "AIzaSyBqnVfSizkjnUTbX-VKIDQrkmLR0DKxwrQ",
+                          onPlacePicked: (result) {
+                            Get.to(
+                              () => FindMechanicView(
+                                pickedLocation: result,
+                                category: category,
+                              ),
+                            );
+                          },
+                          initialPosition:
+                              const LatLng(-33.8567844, 151.213108),
+                          hintText: "Find a place ...",
+                          searchingText: "Please wait ...",
+                          selectText: "Select place",
+                          outsideOfPickAreaText: "Place not in area",
+                          useCurrentLocation: true,
+                          selectInitialPosition: true,
+                          usePinPointingSearch: true,
+                          usePlaceDetailSearch: true,
+                          zoomGesturesEnabled: true,
+                          zoomControlsEnabled: true,
+                          resizeToAvoidBottomInset:
+                              false, // only works in page mode, less flickery, remove if wrong offsets
+                        ),
+                      );
                     },
                     child: AnimatedContainer(
                       duration: const Duration(milliseconds: 300),
@@ -90,7 +120,9 @@ class HomeBody extends StatelessWidget {
                           Text(
                             category.name!,
                             textAlign: TextAlign.center,
-                            style: theme.textTheme.bodyMedium,
+                            style: theme.textTheme.bodyMedium!.copyWith(
+                              fontSize: 12,
+                            ),
                           ),
                         ],
                       ),
