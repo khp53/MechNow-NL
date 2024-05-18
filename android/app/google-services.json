@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1006189825061",
+    "project_id": "mechnow-nl",
+    "storage_bucket": "mechnow-nl.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006189825061:android:37772bbd55f3223cf583cc",
+        "android_client_info": {
+          "package_name": "com.mechnownl.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz3Fux-E_b3gFki-Re65zLY5PXwMNjFLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
