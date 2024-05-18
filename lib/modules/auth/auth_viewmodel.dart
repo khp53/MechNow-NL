@@ -62,7 +62,7 @@ class AuthViewmodel extends Viewmodel {
           transition: Transition.downToUp,
         );
       } else {
-        Get.to(
+        Get.offAll(
           () => const HomeView(),
           transition: Transition.downToUp,
         );
@@ -84,7 +84,7 @@ class AuthViewmodel extends Viewmodel {
           transition: Transition.downToUp,
         );
       } else {
-        Get.to(
+        Get.offAll(
           () => const HomeView(),
           transition: Transition.downToUp,
         );

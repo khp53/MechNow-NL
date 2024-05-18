@@ -8,12 +8,11 @@ class NotificationViewmodel extends Viewmodel {
   checkNotificationPermission() async {
     // Check if notification permission is granted
     var status = await Permission.notification.status;
-    print(status.isGranted);
     if (!status.isGranted) {
       await requestNotificationPermission();
     } else {
       // Permission is granted
-      Get.to(
+      Get.offAll(
         () => const HomeView(),
         transition: Transition.downToUp,
       );
@@ -26,7 +25,7 @@ class NotificationViewmodel extends Viewmodel {
     // Check if permission is granted
     if (newStatus.isGranted) {
       // Permission is granted
-      Get.to(
+      Get.offAll(
         () => const HomeView(),
         transition: Transition.downToUp,
       );

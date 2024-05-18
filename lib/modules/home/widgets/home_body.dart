@@ -7,6 +7,20 @@ class HomeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    var theme = Theme.of(context);
+    return Scaffold(
+      backgroundColor: theme.colorScheme.background,
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: theme.colorScheme.background,
+        title: Text(
+          'MechNow NL',
+          style: theme.textTheme.headlineMedium!.copyWith(
+            fontSize: 18,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+      ),
+    );
   }
 }
