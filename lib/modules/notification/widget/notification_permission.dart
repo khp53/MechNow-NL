@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hackathon_user_app/common/custom_button.dart';
+import 'package:hackathon_user_app/modules/notification/notification_viewmodel.dart';
 import 'package:lottie/lottie.dart';
 
 class NotificationPermission extends StatelessWidget {
-  const NotificationPermission({super.key});
+  const NotificationPermission({super.key, required this.viewmodel});
+  final NotificationViewmodel viewmodel;
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +57,9 @@ class NotificationPermission extends StatelessWidget {
                     buttonColor: theme.colorScheme.primary,
                     textColor: theme.colorScheme.onPrimary,
                     buttonText: 'Turn on notifications',
-                    onPressed: () {},
+                    onPressed: () async {
+                      await viewmodel.checkNotificationPermission();
+                    },
                   ),
                 ),
               ),

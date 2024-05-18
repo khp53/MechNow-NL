@@ -19,7 +19,7 @@ class AuthServicesFirebase extends AuthServices {
       // save credential to hive and then return it
       var userBox = await Hive.openBox('user');
       userBox.put('user_id', credential.user!.uid);
-      return credential;
+      //return credential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         customSnackBar(
@@ -57,9 +57,11 @@ class AuthServicesFirebase extends AuthServices {
     required String childRole,
   }) async {
     var userBox = await Hive.openBox('user');
-    UserCredential userCredential = await registerUser(email, password);
+    UserCredential? userCredential = await registerUser(email, password);
 
-    if (userCredential.user != null && userCredential.user!.uid.isNotEmpty) {
+    if (userCredential != null &&
+        userCredential.user != null &&
+        userCredential.user!.uid.isNotEmpty) {
       Users user = Users(
         id: userCredential.user!.uid,
         email: email,
@@ -95,25 +97,16 @@ class AuthServicesFirebase extends AuthServices {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);
+      //print(credential.user!.uid);
       var userBox = await Hive.openBox('user');
       userBox.put('user_id', credential.user!.uid);
-      return credential;
+      // ignore: unused_catch_clause
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        customSnackBar(
-          title: 'Alert!',
-          message: 'No user found for that email.',
-          bgColor: Colors.red,
-        );
-        debugPrint('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        customSnackBar(
-          title: 'Alert!',
-          message: 'Wrong password provided for that user.',
-          bgColor: Colors.red,
-        );
-        debugPrint('Wrong password provided for that user.');
-      }
+      customSnackBar(
+        title: 'Alert!',
+        message: "Failed to sign in at this moment. Please try again later.",
+        bgColor: Colors.red,
+      );
     }
   }
 
