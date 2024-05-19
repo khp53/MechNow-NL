@@ -1,0 +1,3 @@
+abstract class UserServices {
+  getUserData();
+}

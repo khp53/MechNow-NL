@@ -60,7 +60,6 @@ class AuthServicesFirebase extends AuthServices {
     required String role,
     required String childRole,
   }) async {
-    var userBox = await Hive.openBox('user');
     UserCredential? userCredential = await registerUser(email, password);
 
     if (userCredential != null &&
@@ -78,10 +77,7 @@ class AuthServicesFirebase extends AuthServices {
           .collection('users')
           .doc(userCredential.user!.uid)
           .set(user.toJson());
-      await userBox.put('area', area);
-      await userBox.put('role', childRole);
-      //await userBox.put('childRole', childRole);
-      await userBox.put('name', name);
+
       var status = await Permission.notification.status;
       if (!status.isGranted) {
         Get.to(

@@ -1,13 +1,15 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:hackathon_user_app/dependencies/dependency_injection.dart';
 import 'package:hackathon_user_app/model/category.dart';
 import 'package:hackathon_user_app/modules/viewmodel.dart';
+import 'package:hackathon_user_app/services/user_services/user_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeViewmodel extends Viewmodel {
   HomeViewmodel() {
-    // Add your initialization code here
-    checkUserType();
+    getUserData();
   }
+  UserServices get _userServices => dependency();
 
   bool _isMechanic = false;
 
@@ -17,7 +19,7 @@ class HomeViewmodel extends Viewmodel {
     turnIdle();
   }
 
-  void checkUserType() async {
+  checkUserType() async {
     var userBox = await Hive.openBox('user');
     var userType = userBox.get('role');
     if (userType == 'generalUser') {
@@ -73,4 +75,9 @@ class HomeViewmodel extends Viewmodel {
       type: 'carpenter',
     ),
   ];
+
+  getUserData() async {
+    await _userServices.getUserData();
+    await checkUserType();
+  }
 }
