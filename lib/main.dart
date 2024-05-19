@@ -25,19 +25,6 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         fontFamily: 'Raleway',
-        colorScheme: const ColorScheme(
-          primary: Color(0xFFFFC801),
-          secondary: Color(0xFFA1A6B0),
-          surface: Colors.white,
-          background: Colors.white,
-          error: Colors.red,
-          onPrimary: Colors.black,
-          onSecondary: Colors.black,
-          onSurface: Colors.black,
-          onBackground: Colors.black,
-          onError: Colors.white,
-          brightness: Brightness.light,
-        ),
         textTheme: const TextTheme(
           headlineMedium: TextStyle(
             fontSize: 24.0,
@@ -61,6 +48,20 @@ class MyApp extends StatelessWidget {
           ),
         ),
         useMaterial3: false,
+        scaffoldBackgroundColor: Colors.white,
+        colorScheme: const ColorScheme(
+          primary: Color(0xFFFFC801),
+          secondary: Color(0xFFA1A6B0),
+          surface: Colors.white,
+          background: Colors.white,
+          error: Colors.red,
+          onPrimary: Colors.black,
+          onSecondary: Colors.black,
+          onSurface: Colors.black,
+          onBackground: Colors.black,
+          onError: Colors.white,
+          brightness: Brightness.light,
+        ).copyWith(background: Colors.white, surface: Colors.white),
       ),
       home: const OnboardView(),
     );

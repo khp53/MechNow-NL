@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 import 'package:hackathon_user_app/common/custom_bottomsheet.dart';
@@ -11,7 +12,7 @@ import 'package:hackathon_user_app/model/category.dart';
 import 'package:hackathon_user_app/modules/bid_module/bid_view.dart';
 import 'package:hackathon_user_app/modules/find_mechanic/find_mechanic_viewmodel.dart';
 
-class FindMechanicBody extends StatelessWidget {
+class FindMechanicBody extends StatefulWidget {
   const FindMechanicBody(
       {super.key,
       required this.viewmodel,
@@ -22,6 +23,26 @@ class FindMechanicBody extends StatelessWidget {
   final CategoryModel category;
 
   @override
+  State<FindMechanicBody> createState() => _FindMechanicBodyState();
+}
+
+class _FindMechanicBodyState extends State<FindMechanicBody> {
+  Position? currentLocation;
+
+  @override
+  void initState() {
+    Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    ).then(
+      (value) => setState(() {
+        currentLocation = value;
+      }),
+    );
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
     return Scaffold(
@@ -29,8 +50,9 @@ class FindMechanicBody extends StatelessWidget {
         child: Stack(
           children: [
             GoogleMap(
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(-33.8567844, 151.213108),
+              initialCameraPosition: CameraPosition(
+                target: LatLng(
+                    currentLocation!.latitude, currentLocation!.longitude),
                 zoom: 14.4746,
               ),
               myLocationEnabled: true,
@@ -55,7 +77,7 @@ class FindMechanicBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Enter what kind of ${category.name} assist do you need?',
+                      'Enter what kind of ${widget.category.name} assist do you need?',
                       style: theme.textTheme.headlineMedium!.copyWith(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -70,7 +92,7 @@ class FindMechanicBody extends StatelessWidget {
                       isObscured: false,
                       isDigit: false,
                       isRequired: false,
-                      controller: viewmodel.noteController,
+                      controller: widget.viewmodel.noteController,
                     ),
                     const SizedBox(height: 25),
                     SizedBox(
@@ -80,25 +102,27 @@ class FindMechanicBody extends StatelessWidget {
                         buttonColor: theme.colorScheme.primary,
                         textColor: theme.colorScheme.onPrimary,
                         onPressed: () async {
-                          if (viewmodel.problemType.isEmpty) {
+                          if (widget.viewmodel.problemType.isEmpty) {
                             customSnackBar(
                               title: "Alert!",
                               message: "Please choose a problem type!",
                               bgColor: Colors.red,
                             );
-                          } else if (viewmodel.problemType.toLowerCase() ==
+                          } else if (widget.viewmodel.problemType
+                                      .toLowerCase() ==
                                   'others' &&
-                              viewmodel.noteController.text.isEmpty) {
+                              widget.viewmodel.noteController.text.isEmpty) {
                             customSnackBar(
                               title: "Alert!",
                               message: "Please enter a note!",
                               bgColor: Colors.red,
                             );
                           } else {
-                            var res = await viewmodel.sendMechanicRequest(
+                            var res =
+                                await widget.viewmodel.sendMechanicRequest(
                               latLang:
-                                  '${pickedLocation!.geometry!.location.lat},${pickedLocation!.geometry!.location.lng}',
-                              requestType: category.type!,
+                                  '${widget.pickedLocation!.geometry!.location.lat},${widget.pickedLocation!.geometry!.location.lng}',
+                              requestType: widget.category.type!,
                             );
                             if (res.statusCode == 200) {
                               Navigator.push(
@@ -151,7 +175,7 @@ class FindMechanicBody extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               onTap: () {
-                viewmodel.setProblemType('Flat tire');
+                widget.viewmodel.setProblemType('Flat tire');
                 // Get.back();
               },
             ),
@@ -162,7 +186,7 @@ class FindMechanicBody extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               onTap: () {
-                viewmodel.setProblemType('Jump start');
+                widget.viewmodel.setProblemType('Jump start');
                 // Get.back();
               },
             ),
@@ -173,7 +197,7 @@ class FindMechanicBody extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               onTap: () {
-                viewmodel.setProblemType('Lost my keys');
+                widget.viewmodel.setProblemType('Lost my keys');
                 // Get.back();
               },
             ),
@@ -184,7 +208,7 @@ class FindMechanicBody extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               onTap: () {
-                viewmodel.setProblemType('Need roof repair');
+                widget.viewmodel.setProblemType('Need roof repair');
                 // Get.back();
               },
             ),
@@ -195,7 +219,7 @@ class FindMechanicBody extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               onTap: () {
-                viewmodel.setProblemType('Heater knob broken');
+                widget.viewmodel.setProblemType('Heater knob broken');
                 // Get.back();
               },
             ),
@@ -206,7 +230,7 @@ class FindMechanicBody extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               onTap: () {
-                viewmodel.setProblemType('Out of fuel');
+                widget.viewmodel.setProblemType('Out of fuel');
                 // Get.back();
               },
             ),
@@ -217,7 +241,7 @@ class FindMechanicBody extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               onTap: () {
-                viewmodel.setProblemType('Locked out');
+                widget.viewmodel.setProblemType('Locked out');
                 // Get.back();
               },
             ),
@@ -228,7 +252,7 @@ class FindMechanicBody extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               onTap: () {
-                viewmodel.setProblemType('Water leakage');
+                widget.viewmodel.setProblemType('Water leakage');
                 // Get.back();
               },
             ),
@@ -239,7 +263,7 @@ class FindMechanicBody extends StatelessWidget {
                 style: theme.textTheme.bodyMedium,
               ),
               onTap: () {
-                viewmodel.setProblemType('Others');
+                widget.viewmodel.setProblemType('Others');
                 // Get.back();
               },
             ),
@@ -265,9 +289,9 @@ class FindMechanicBody extends StatelessWidget {
         child: Row(
           children: [
             Text(
-              viewmodel.problemType.isEmpty
+              widget.viewmodel.problemType.isEmpty
                   ? 'Select a problem *'
-                  : viewmodel.problemType,
+                  : widget.viewmodel.problemType,
               style: theme.textTheme.bodyMedium!.copyWith(
                 color: const Color(0xFF828282),
               ),

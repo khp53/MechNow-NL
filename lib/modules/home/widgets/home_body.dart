@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
@@ -15,9 +16,20 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
+  Position? currentLocation;
+  bool mapsLoaded = false;
+
   @override
   void initState() {
     super.initState();
+
+    Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    ).then(
+      (value) => setState(() {
+        currentLocation = value;
+      }),
+    );
     widget.viewmodel.isLoading = true;
     widget.viewmodel.getUserData().then((value) {
       widget.viewmodel.isLoading = false;
@@ -116,9 +128,14 @@ class _HomeBodyState extends State<HomeBody> {
                                 category: category,
                               ),
                             );
+                            setState(() {
+                              mapsLoaded = false;
+                            });
                           },
-                          initialPosition:
-                              const LatLng(-33.8567844, 151.213108),
+                          initialPosition: LatLng(
+                            currentLocation!.latitude,
+                            currentLocation!.longitude,
+                          ),
                           hintText: "Find a place ...",
                           searchingText: "Please wait ...",
                           selectText: "Select place",
@@ -129,8 +146,8 @@ class _HomeBodyState extends State<HomeBody> {
                           usePlaceDetailSearch: true,
                           zoomGesturesEnabled: true,
                           zoomControlsEnabled: true,
-                          resizeToAvoidBottomInset:
-                              false, // only works in page mode, less flickery, remove if wrong offsets
+                          resizeToAvoidBottomInset: false,
+                          initialMapType: MapType.normal,
                         ),
                       );
                     },
