@@ -32,7 +32,9 @@ class BidBody extends StatelessWidget {
                 } else if (snapshot.hasError) {
                   return Text('Error: ${snapshot.error}');
                 } else if (snapshot.hasData) {
-                  return hireCard(context, theme, snapshot);
+                  return snapshot.data!.docs.isEmpty
+                      ? loadingBids(context, theme)
+                      : hireCard(context, theme, snapshot);
                 } else {
                   return loadingBids(context, theme);
                 }
