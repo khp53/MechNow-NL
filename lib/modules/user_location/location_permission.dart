@@ -30,12 +30,9 @@ class LocationPermission extends StatelessWidget {
               ),
               const Spacer(),
               Center(
-                child: SizedBox(
-                  height: 150,
-                  child: Lottie.asset(
-                    'assets/lottie/location_permission.json',
-                    fit: BoxFit.cover,
-                  ),
+                child: Lottie.asset(
+                  'assets/lottie/location.json',
+                  fit: BoxFit.cover,
                 ),
               ),
               const Spacer(),

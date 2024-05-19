@@ -3,11 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hackathon_user_app/modules/home/home_viewmodel.dart';
 import 'package:hackathon_user_app/modules/user_location/user_location.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 class HiredJob extends StatelessWidget {
   const HiredJob({super.key, required this.viewmodel});
   final HomeViewmodel viewmodel;
+
+  getUserId() {
+    var userBox = Hive.box('user');
+    return userBox.get('userId');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +57,7 @@ class HiredJob extends StatelessWidget {
               stream: FirebaseFirestore.instance
                   .collection('requests')
                   .where("status", isEqualTo: "hired")
+                  .where('hiredMechanic', isEqualTo: getUserId())
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

@@ -106,6 +106,7 @@ class _MechanicHomeBodyState extends State<MechanicHomeBody> {
               StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('requests')
+                    .where('status', isEqualTo: 'open')
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
