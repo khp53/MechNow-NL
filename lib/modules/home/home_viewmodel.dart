@@ -5,7 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_user_app/dependencies/dependency_injection.dart';
 import 'package:hackathon_user_app/model/category.dart';
 import 'package:hackathon_user_app/modules/auth/auth_view.dart';
-import 'package:hackathon_user_app/modules/notification/fcm_notification_viewmodel.dart';
+//import 'package:hackathon_user_app/modules/notification/fcm_notification_viewmodel.dart';
 import 'package:hackathon_user_app/modules/viewmodel.dart';
 import 'package:hackathon_user_app/services/auth_services/auth_services.dart';
 import 'package:hackathon_user_app/services/user_services/user_services.dart';
@@ -13,6 +13,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeViewmodel extends Viewmodel {
   HomeViewmodel() {
+    checkUserType();
     getUserData();
   }
   UserServices get _userServices => dependency();
@@ -46,7 +47,7 @@ class HomeViewmodel extends Viewmodel {
 
   checkUserType() async {
     var userBox = await Hive.openBox('user');
-    var userType = userBox.get('role');
+    var userType = await userBox.get('role');
     if (userType == 'generalUser') {
       isMechanic = false;
     } else {
@@ -105,7 +106,7 @@ class HomeViewmodel extends Viewmodel {
     await _userServices.getUserData();
     await checkUserType();
     await getUsername();
-    await registerNotification();
+    //await registerNotification();
   }
 
   getUsername() async {

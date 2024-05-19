@@ -113,7 +113,8 @@ class AuthServicesFirebase extends AuthServices {
   }
 
   @override
-  signInWithEmailAndPassword(String email, String password) async {
+  signInWithEmailAndPassword(
+      String email, String password, bool isMechanic) async {
     try {
       final credential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: password);

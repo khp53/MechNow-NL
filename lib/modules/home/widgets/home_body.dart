@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/route_manager.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
@@ -16,27 +15,6 @@ class HomeBody extends StatefulWidget {
 }
 
 class _HomeBodyState extends State<HomeBody> {
-  Position? currentLocation;
-  bool mapsLoaded = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // Geolocator.getCurrentPosition(
-    //   desiredAccuracy: LocationAccuracy.high,
-    // ).then(
-    //   (value) => setState(() {
-    //     currentLocation = value;
-    //   }),
-    // );
-    widget.viewmodel.isLoading = true;
-    widget.viewmodel.getUserData().then((value) {
-      widget.viewmodel.isLoading = false;
-      //setState(() {});
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -128,9 +106,6 @@ class _HomeBodyState extends State<HomeBody> {
                                 category: category,
                               ),
                             );
-                            setState(() {
-                              mapsLoaded = false;
-                            });
                           },
                           initialPosition: const LatLng(
                             47.57247,

@@ -14,14 +14,15 @@ class UserServicesFirebase extends UserServices {
     // fetch user data from firestore user collection
     final docRef = db.collection("users").doc(uid);
     docRef.get().then(
-      (DocumentSnapshot doc) {
+      (DocumentSnapshot doc) async {
         final data = doc.data() as Map<String, dynamic>;
         // save user data to user model
-        userBox.put('name', data['name']);
-        userBox.put('phoneNumber', data['phone']);
-        userBox.put('area', data['area']);
-        userBox.put('role', data['role']);
-        userBox.put('email', data['email']);
+        await userBox.put('name', data['name']);
+        await userBox.put('phoneNumber', data['phone']);
+        await userBox.put('area', data['area']);
+        await userBox.put('role', data['role']);
+        print(data['role']);
+        await userBox.put('email', data['email']);
       },
       onError: (e) => customSnackBar(
         title: "Alert!",

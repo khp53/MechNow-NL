@@ -112,6 +112,7 @@ class LoginBody extends StatelessWidget {
                           buttonText: 'Login',
                           onPressed: () async {
                             await viewmodel.loginUser();
+                            await viewmodel.getUserData();
                           },
                         ),
                 ),

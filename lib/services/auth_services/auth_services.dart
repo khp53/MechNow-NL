@@ -8,7 +8,7 @@ abstract class AuthServices {
     required String role,
     required String childRole,
   });
-  signInWithEmailAndPassword(String email, String password);
+  signInWithEmailAndPassword(String email, String password, bool isMechanic);
   signInWithGoogle();
   signOut();
 }
