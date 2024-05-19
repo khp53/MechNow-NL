@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hackathon_user_app/common/custom_button.dart';
 import 'package:hackathon_user_app/modules/bid_module/bid_viewmodel.dart';
 import 'package:hackathon_user_app/modules/home/home_view.dart';
+import 'package:lottie/lottie.dart';
 
 class BidBody extends StatelessWidget {
   const BidBody({super.key, required this.viewmodel, required this.docId});
@@ -225,6 +226,16 @@ class BidBody extends StatelessWidget {
                   ),
             ),
           ),
+          Center(
+              child: SizedBox(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 30),
+              child: Lottie.asset(
+                'assets/lottie/shimmer.json',
+                fit: BoxFit.cover,
+              ),
+            ),
+          )),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(20),

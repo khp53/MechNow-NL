@@ -166,6 +166,40 @@ class FindMechanicBody extends StatelessWidget {
                 // Get.back();
               },
             ),
+            const Divider(),
+            ListTile(
+              title: Text(
+                'Lost my keys',
+                style: theme.textTheme.bodyMedium,
+              ),
+              onTap: () {
+                viewmodel.setProblemType('Lost my keys');
+                // Get.back();
+              },
+            ),
+            const Divider(),
+            ListTile(
+              title: Text(
+                'Need roof repair',
+                style: theme.textTheme.bodyMedium,
+              ),
+              onTap: () {
+                viewmodel.setProblemType('Need roof repair');
+                // Get.back();
+              },
+            ),
+            const Divider(),
+            ListTile(
+              title: Text(
+                'Heater knob broken',
+                style: theme.textTheme.bodyMedium,
+              ),
+              onTap: () {
+                viewmodel.setProblemType('Heater knob broken');
+                // Get.back();
+              },
+            ),
+            const Divider(),
             ListTile(
               title: Text(
                 'Out of fuel',
@@ -176,6 +210,7 @@ class FindMechanicBody extends StatelessWidget {
                 // Get.back();
               },
             ),
+            const Divider(),
             ListTile(
               title: Text(
                 'Locked out',
@@ -186,6 +221,18 @@ class FindMechanicBody extends StatelessWidget {
                 // Get.back();
               },
             ),
+            const Divider(),
+            ListTile(
+              title: Text(
+                'Water leakage',
+                style: theme.textTheme.bodyMedium,
+              ),
+              onTap: () {
+                viewmodel.setProblemType('Water leakage');
+                // Get.back();
+              },
+            ),
+            const Divider(),
             ListTile(
               title: Text(
                 'Others',
@@ -196,6 +243,7 @@ class FindMechanicBody extends StatelessWidget {
                 // Get.back();
               },
             ),
+            const Divider(),
           ],
         ),
       ),
