@@ -23,6 +23,15 @@ class BidBody extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             color: Colors.transparent,
           ),
+          Center(
+            child: SizedBox(
+              height: 280,
+              child: Lottie.asset(
+                'assets/lottie/search.json',
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
           Positioned(
             bottom: 0,
             child: StreamBuilder<QuerySnapshot>(
