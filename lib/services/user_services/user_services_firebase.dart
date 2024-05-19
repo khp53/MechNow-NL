@@ -30,4 +30,18 @@ class UserServicesFirebase extends UserServices {
       ),
     );
   }
+
+  @override
+  updateFcmToken(String fcmToken) async {
+    var userBox = await Hive.openBox('user');
+    final uid = await userBox.get('user_id');
+    final docRef = db.collection("users").doc(uid);
+    docRef.update({'deviceToken': fcmToken}).then(
+      (value) {
+        debugPrint("Token Updated");
+        userBox.put('deviceToken', fcmToken);
+      },
+      onError: (e) => debugPrint(e.toString()),
+    );
+  }
 }

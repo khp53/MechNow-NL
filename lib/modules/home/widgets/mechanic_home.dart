@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hackathon_user_app/common/custom_bottomsheet.dart';
 import 'package:hackathon_user_app/modules/home/home_viewmodel.dart';
 
 class MechanicHomeBody extends StatelessWidget {
@@ -20,13 +22,41 @@ class MechanicHomeBody extends StatelessWidget {
             fontWeight: FontWeight.w900,
           ),
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 15, top: 15, bottom: 10),
-            child: CircleAvatar(
-              radius: 20,
-              backgroundImage: NetworkImage(
-                'https://avatars.githubusercontent.com/u/44136592?v=4',
+            padding: const EdgeInsets.only(right: 15, top: 15, bottom: 10),
+            child: InkWell(
+              onTap: () => bottomSheet(
+                theme,
+                Column(
+                  children: [
+                    // ListTile(
+                    //   title: Text('Profile'),
+                    //   leading: Icon(Icons.person),
+                    //   onTap: () {
+                    //     Get.back();
+                    //     Get.toNamed('/profile');
+                    //   },
+                    // ),
+                    ListTile(
+                      title: const Text('Logout'),
+                      leading: Icon(
+                        Icons.logout,
+                        color: theme.colorScheme.primary,
+                      ),
+                      onTap: () {
+                        Get.back();
+                        viewmodel.logout();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              child: const CircleAvatar(
+                radius: 20,
+                backgroundImage: NetworkImage(
+                  'https://avatars.githubusercontent.com/u/44136592?v=4',
+                ),
               ),
             ),
           ),

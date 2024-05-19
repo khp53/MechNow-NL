@@ -63,7 +63,9 @@ class HomeBody extends StatelessWidget {
         ],
       ),
       body: viewmodel.username.isEmpty
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
           : SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               child: Container(
