@@ -1,7 +1,10 @@
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_user_app/dependencies/dependency_injection.dart';
 import 'package:hackathon_user_app/model/category.dart';
+import 'package:hackathon_user_app/modules/auth/auth_view.dart';
 import 'package:hackathon_user_app/modules/viewmodel.dart';
+import 'package:hackathon_user_app/services/auth_services/auth_services.dart';
 import 'package:hackathon_user_app/services/user_services/user_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -10,6 +13,7 @@ class HomeViewmodel extends Viewmodel {
     getUserData();
   }
   UserServices get _userServices => dependency();
+  AuthServices get _authServices => dependency();
 
   bool _isMechanic = false;
   String _username = '';
@@ -91,6 +95,19 @@ class HomeViewmodel extends Viewmodel {
 
   getUsername() async {
     var userBox = await Hive.openBox('user');
-    username = await userBox.get('name');
+    username = await userBox.get('name') ?? '';
+  }
+
+  logout() async {
+    await _authServices.signOut();
+    // clean local db
+    var userBox = await Hive.openBox('user');
+    await userBox.clear();
+    Get.offAll(
+      () => const AuthView(
+        isLogin: false,
+      ),
+      transition: Transition.downToUp,
+    );
   }
 }

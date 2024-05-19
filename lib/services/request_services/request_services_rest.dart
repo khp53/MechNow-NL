@@ -39,6 +39,8 @@ class RequestServicesRest extends RequestServices {
         return jsonDecode(response.body);
       } else if (response.statusCode == 202) {
         return jsonDecode(response.body);
+      } else if (response.statusCode == 200) {
+        return jsonDecode(response.body);
       } else if (response.statusCode == 401) {
         Get.offAll(
           () => const AuthView(
@@ -46,11 +48,11 @@ class RequestServicesRest extends RequestServices {
           ),
         );
       } else {
-        debugPrint(response.body.toString());
+        debugPrint("Else Response: ${response.statusCode}");
         return jsonDecode(response.body);
       }
     } catch (e) {
-      print(e.toString());
+      print("Error:$e");
       customSnackBar(
         title: 'Alert!',
         message:
