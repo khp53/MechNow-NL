@@ -11,13 +11,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeViewmodel extends Viewmodel {
   HomeViewmodel() {
-    getUserData();
+    //getUserData();
   }
   UserServices get _userServices => dependency();
   AuthServices get _authServices => dependency();
 
   bool _isMechanic = false;
   String _username = '';
+  bool _isLoading = false;
 
   bool get isMechanic => _isMechanic;
   set isMechanic(bool value) {
@@ -28,6 +29,12 @@ class HomeViewmodel extends Viewmodel {
   String get username => _username;
   set username(String value) {
     _username = value;
+    turnIdle();
+  }
+
+  bool get isLoading => _isLoading;
+  set isLoading(bool value) {
+    _isLoading = value;
     turnIdle();
   }
 
@@ -98,7 +105,6 @@ class HomeViewmodel extends Viewmodel {
   getUsername() async {
     var userBox = await Hive.openBox('user');
     username = await userBox.get('name') ?? '';
-    print(username);
   }
 
   logout() async {

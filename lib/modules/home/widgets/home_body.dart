@@ -6,9 +6,24 @@ import 'package:hackathon_user_app/common/custom_bottomsheet.dart';
 import 'package:hackathon_user_app/modules/find_mechanic/find_mechanic_view.dart';
 import 'package:hackathon_user_app/modules/home/home_viewmodel.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({super.key, required this.viewmodel});
   final HomeViewmodel viewmodel;
+
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+  @override
+  void initState() {
+    super.initState();
+    widget.viewmodel.isLoading = true;
+    widget.viewmodel.getUserData().then((value) {
+      widget.viewmodel.isLoading = false;
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +61,7 @@ class HomeBody extends StatelessWidget {
                       leading: const Icon(Icons.logout),
                       onTap: () {
                         Get.back();
-                        viewmodel.logout();
+                        widget.viewmodel.logout();
                       },
                     ),
                   ],
@@ -62,7 +77,7 @@ class HomeBody extends StatelessWidget {
           ),
         ],
       ),
-      body: viewmodel.username.isEmpty
+      body: widget.viewmodel.isLoading
           ? const Center(
               child: CircularProgressIndicator(),
             )
@@ -74,7 +89,7 @@ class HomeBody extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hello, ${viewmodel.username}!',
+                      'Hello, ${widget.viewmodel.username}!',
                       style: theme.textTheme.headlineMedium!.copyWith(
                         fontSize: 24,
                         fontWeight: FontWeight.normal,
@@ -99,9 +114,9 @@ class HomeBody extends StatelessWidget {
                         mainAxisSpacing: 10,
                         childAspectRatio: 0.7,
                       ),
-                      itemCount: viewmodel.categories.length,
+                      itemCount: widget.viewmodel.categories.length,
                       itemBuilder: (context, index) {
-                        var category = viewmodel.categories[index];
+                        var category = widget.viewmodel.categories[index];
                         return GestureDetector(
                           onTap: () {
                             Get.to(

@@ -1,9 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hackathon_user_app/common/custom_snackbar.dart';
-import 'package:hackathon_user_app/modules/auth/auth_view.dart';
 import 'package:hackathon_user_app/services/request_services/request_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -35,28 +33,11 @@ class RequestServicesRest extends RequestServices {
         body: json.encode(data),
       );
 
-      if (response.statusCode == 201) {
-        return jsonDecode(response.body);
-      } else if (response.statusCode == 202) {
-        return jsonDecode(response.body);
-      } else if (response.statusCode == 200) {
-        return jsonDecode(response.body);
-      } else if (response.statusCode == 401) {
-        Get.offAll(
-          () => const AuthView(
-            isLogin: true,
-          ),
-        );
-      } else {
-        debugPrint("Else Response: ${response.statusCode}");
-        return jsonDecode(response.body);
-      }
+      return response;
     } catch (e) {
-      print("Error:$e");
       customSnackBar(
         title: 'Alert!',
-        message:
-            "Sorry cannot process your request right now! Please try again later.",
+        message: "Something went wrong, please try again later!",
         bgColor: Colors.red,
       );
     }
