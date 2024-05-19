@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_user_app/dependencies/dependency_injection.dart';
@@ -17,6 +18,7 @@ class HomeViewmodel extends Viewmodel {
   bool _isMechanic = false;
   String _username = '';
   bool _isLoading = false;
+  TextEditingController bidController = TextEditingController();
 
   bool get isMechanic => _isMechanic;
   set isMechanic(bool value) {
