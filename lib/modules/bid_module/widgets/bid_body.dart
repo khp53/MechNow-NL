@@ -164,8 +164,13 @@ class BidBody extends StatelessWidget {
                           buttonColor: theme.colorScheme.onPrimary,
                           textColor: theme.colorScheme.surface,
                           buttonText: 'Hire',
-                          onPressed: () {
-                            // Add your hire code here
+                          onPressed: () async {
+                            await viewmodel.hireMechanic(
+                              docId,
+                              bid['userId'],
+                              bid['amount'],
+                              data['name'],
+                            );
                           },
                         ),
                       ),
@@ -224,7 +229,7 @@ class BidBody extends StatelessWidget {
               textColor: theme.colorScheme.onPrimary,
               buttonText: 'Cancel',
               onPressed: () {
-                // Add your cancel code here
+                Get.offAll(() => const HomeView());
               },
             ),
           ),
