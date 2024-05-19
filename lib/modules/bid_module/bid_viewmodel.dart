@@ -25,6 +25,7 @@ class BidViewmodel extends Viewmodel {
             formattedDate) // replace this with the actual date format you're using
         .doc(docId) // replace 'docId' with the actual document ID
         .collection("bid")
+        .where('status', isEqualTo: 'open')
         .snapshots();
   }
 
