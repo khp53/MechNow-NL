@@ -1,11 +1,32 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_user_app/model/category.dart';
 import 'package:hackathon_user_app/modules/viewmodel.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeViewmodel extends Viewmodel {
   HomeViewmodel() {
     // Add your initialization code here
+    checkUserType();
   }
+
+  bool _isMechanic = false;
+
+  bool get isMechanic => _isMechanic;
+  set isMechanic(bool value) {
+    _isMechanic = value;
+    turnIdle();
+  }
+
+  void checkUserType() async {
+    var userBox = await Hive.openBox('user');
+    var userType = userBox.get('role');
+    if (userType == 'generalUser') {
+      isMechanic = false;
+    } else {
+      isMechanic = true;
+    }
+  }
+
   static const kInitialPosition = LatLng(-33.8567844, 151.213108);
 
   List<CategoryModel> categories = [
