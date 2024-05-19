@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
@@ -6,6 +8,7 @@ import 'package:hackathon_user_app/common/custom_button.dart';
 import 'package:hackathon_user_app/common/custom_snackbar.dart';
 import 'package:hackathon_user_app/common/custom_text_field.dart';
 import 'package:hackathon_user_app/model/category.dart';
+import 'package:hackathon_user_app/modules/bid_module/bid_view.dart';
 import 'package:hackathon_user_app/modules/find_mechanic/find_mechanic_viewmodel.dart';
 
 class FindMechanicBody extends StatelessWidget {
@@ -92,11 +95,24 @@ class FindMechanicBody extends StatelessWidget {
                               bgColor: Colors.red,
                             );
                           } else {
-                            await viewmodel.sendMechanicRequest(
+                            var res = await viewmodel.sendMechanicRequest(
                               latLang:
                                   '${pickedLocation!.geometry!.location.lat},${pickedLocation!.geometry!.location.lng}',
                               requestType: category.type!,
                             );
+                            if (res.statusCode == 200) {
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder:
+                                      (context, animation1, animation2) =>
+                                          BidView(
+                                    docId: res.body,
+                                  ),
+                                  opaque: false,
+                                ),
+                              );
+                            }
                           }
                         },
                       ),

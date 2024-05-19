@@ -38,6 +38,6 @@ class FindMechanicViewmodel extends Viewmodel {
       note: noteController.text,
       requestType: requestType,
     );
-    print(res);
+    return res;
   }
 }
