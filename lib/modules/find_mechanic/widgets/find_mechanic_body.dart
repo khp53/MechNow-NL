@@ -76,7 +76,7 @@ class FindMechanicBody extends StatelessWidget {
                         buttonText: 'Find Mechanic',
                         buttonColor: theme.colorScheme.primary,
                         textColor: theme.colorScheme.onPrimary,
-                        onPressed: () {
+                        onPressed: () async {
                           if (viewmodel.problemType.isEmpty) {
                             customSnackBar(
                               title: "Alert!",
@@ -92,10 +92,10 @@ class FindMechanicBody extends StatelessWidget {
                               bgColor: Colors.red,
                             );
                           } else {
-                            customSnackBar(
-                              title: "Success!",
-                              message: "Mechanic found successfully!",
-                              bgColor: Colors.green,
+                            await viewmodel.sendMechanicRequest(
+                              latLang:
+                                  '${pickedLocation!.geometry!.location.lat},${pickedLocation!.geometry!.location.lng}',
+                              requestType: category.type!,
                             );
                           }
                         },

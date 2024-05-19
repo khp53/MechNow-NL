@@ -18,6 +18,7 @@ dependencies:
   google_maps_place_picker_mb: ^3.1.2
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  http: any
   lottie: ^3.1.2
   permission_handler: ^11.3.1
   provider: ^6.1.2

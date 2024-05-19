@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hackathon_user_app/common/custom_snackbar.dart';
 import 'package:hackathon_user_app/model/user.dart';
+import 'package:hackathon_user_app/modules/home/home_view.dart';
+import 'package:hackathon_user_app/modules/notification/notification_view.dart';
 import 'package:hackathon_user_app/services/auth_services/auth_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AuthServicesFirebase extends AuthServices {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -19,7 +23,7 @@ class AuthServicesFirebase extends AuthServices {
       // save credential to hive and then return it
       var userBox = await Hive.openBox('user');
       userBox.put('user_id', credential.user!.uid);
-      //return credential;
+      return credential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         customSnackBar(
@@ -32,7 +36,7 @@ class AuthServicesFirebase extends AuthServices {
         debugPrint('The account already exists for that email.');
         customSnackBar(
           title: "Alert!",
-          message: 'The password provided is too weak.',
+          message: 'The account already exists for that email.',
           bgColor: Colors.red,
         );
       }
@@ -68,16 +72,28 @@ class AuthServicesFirebase extends AuthServices {
         name: name,
         phone: phoneNumber,
         area: area,
-        role: role,
-        childRole: childRole,
+        role: role == 'mechanic' ? childRole : role,
       );
       await _db
           .collection('users')
           .doc(userCredential.user!.uid)
           .set(user.toJson());
-      userBox.put('area', area);
-      userBox.put('role', role);
-      userBox.put('childRole', childRole);
+      await userBox.put('area', area);
+      await userBox.put('role', childRole);
+      //await userBox.put('childRole', childRole);
+      await userBox.put('name', name);
+      var status = await Permission.notification.status;
+      if (!status.isGranted) {
+        Get.to(
+          () => const NotificationView(),
+          transition: Transition.downToUp,
+        );
+      } else {
+        Get.offAll(
+          () => const HomeView(),
+          transition: Transition.downToUp,
+        );
+      }
       customSnackBar(
         title: 'Success!',
         message: 'Successfully created your account.',
@@ -100,6 +116,23 @@ class AuthServicesFirebase extends AuthServices {
       //print(credential.user!.uid);
       var userBox = await Hive.openBox('user');
       userBox.put('user_id', credential.user!.uid);
+      var status = await Permission.notification.status;
+      if (!status.isGranted) {
+        Get.to(
+          () => const NotificationView(),
+          transition: Transition.downToUp,
+        );
+      } else {
+        Get.offAll(
+          () => const HomeView(),
+          transition: Transition.downToUp,
+        );
+      }
+      customSnackBar(
+        title: 'Success!',
+        message: 'Successfully signed in.',
+        bgColor: Colors.green,
+      );
       // ignore: unused_catch_clause
     } on FirebaseAuthException catch (e) {
       customSnackBar(

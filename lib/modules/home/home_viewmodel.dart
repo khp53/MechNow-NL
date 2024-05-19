@@ -13,36 +13,43 @@ class HomeViewmodel extends Viewmodel {
       id: '1',
       name: 'Car Mechanic',
       image: 'assets/images/mechanic.png',
+      type: 'automobileMechanic',
     ),
     CategoryModel(
       id: '2',
       name: 'Locksmith',
       image: 'assets/images/locksmith.png',
+      type: 'locksmith',
     ),
     CategoryModel(
       id: '3',
       name: 'Plumber',
       image: 'assets/images/plumber.png',
+      type: 'plumber',
     ),
     CategoryModel(
       id: '4',
       name: 'Roofer',
       image: 'assets/images/roofer.png',
+      type: 'roofer',
     ),
     CategoryModel(
       id: '5',
       name: 'Electrician',
       image: 'assets/images/electrician.png',
+      type: 'electrician',
     ),
     CategoryModel(
       id: '6',
       name: 'Heater Repair',
       image: 'assets/images/heat.png',
+      type: 'heaterRepair',
     ),
     CategoryModel(
       id: '6',
       name: 'Carpenter',
       image: 'assets/images/carpenter.png',
+      type: 'carpenter',
     ),
   ];
 }

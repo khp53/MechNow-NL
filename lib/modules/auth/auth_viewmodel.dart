@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hackathon_user_app/dependencies/dependency_injection.dart';
-import 'package:hackathon_user_app/modules/home/home_view.dart';
-import 'package:hackathon_user_app/modules/notification/notification_view.dart';
 import 'package:hackathon_user_app/modules/viewmodel.dart';
 import 'package:hackathon_user_app/services/auth_services/auth_services.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class AuthViewmodel extends Viewmodel {
   AuthServices get _authServices => dependency();
@@ -54,19 +51,7 @@ class AuthViewmodel extends Viewmodel {
         role: role,
         childRole: childRole,
       );
-      var status = await Permission.notification.status;
       isLoading = false;
-      if (!status.isGranted) {
-        Get.to(
-          () => const NotificationView(),
-          transition: Transition.downToUp,
-        );
-      } else {
-        Get.offAll(
-          () => const HomeView(),
-          transition: Transition.downToUp,
-        );
-      }
     }
   }
 
@@ -77,18 +62,6 @@ class AuthViewmodel extends Viewmodel {
         emailController.text,
         passwordController.text,
       );
-      var status = await Permission.notification.status;
-      if (!status.isGranted) {
-        Get.to(
-          () => const NotificationView(),
-          transition: Transition.downToUp,
-        );
-      } else {
-        Get.offAll(
-          () => const HomeView(),
-          transition: Transition.downToUp,
-        );
-      }
       isLoading = false;
     }
   }
