@@ -12,10 +12,17 @@ class HomeViewmodel extends Viewmodel {
   UserServices get _userServices => dependency();
 
   bool _isMechanic = false;
+  String _username = '';
 
   bool get isMechanic => _isMechanic;
   set isMechanic(bool value) {
     _isMechanic = value;
+    turnIdle();
+  }
+
+  String get username => _username;
+  set username(String value) {
+    _username = value;
     turnIdle();
   }
 
@@ -79,5 +86,11 @@ class HomeViewmodel extends Viewmodel {
   getUserData() async {
     await _userServices.getUserData();
     await checkUserType();
+    await getUsername();
+  }
+
+  getUsername() async {
+    var userBox = await Hive.openBox('user');
+    username = await userBox.get('name');
   }
 }

@@ -44,7 +44,7 @@ class HomeBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hello, John Doe!',
+                'Hello, ${viewmodel.username}!',
                 style: theme.textTheme.headlineMedium!.copyWith(
                   fontSize: 24,
                   fontWeight: FontWeight.normal,
