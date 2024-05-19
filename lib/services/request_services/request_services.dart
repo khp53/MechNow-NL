@@ -5,4 +5,9 @@ abstract class RequestServices {
     required String note,
     required String requestType,
   });
+
+  sendMechanicHireNoti({
+    required String hiredMechanic,
+    required String userName,
+  });
 }

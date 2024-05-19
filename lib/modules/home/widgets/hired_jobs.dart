@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hackathon_user_app/common/custom_button.dart';
 import 'package:hackathon_user_app/modules/home/home_viewmodel.dart';
 import 'package:hackathon_user_app/modules/user_location/user_location.dart';
 import 'package:lottie/lottie.dart';
@@ -120,31 +119,6 @@ class HiredJob extends StatelessWidget {
                                         );
                                       },
                                     ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  SizedBox(
-                                    child: viewmodel.isLoading
-                                        ? CustomButton(
-                                            loading: true,
-                                            buttonText: "Submit Bid",
-                                            buttonColor:
-                                                theme.colorScheme.primary,
-                                            textColor:
-                                                theme.colorScheme.onPrimary,
-                                            onPressed: () {
-                                              //await viewmodel.submitBid(doc.id);
-                                            },
-                                          )
-                                        : CustomButton(
-                                            buttonText: "Submit Bid",
-                                            buttonColor:
-                                                theme.colorScheme.primary,
-                                            textColor:
-                                                theme.colorScheme.onPrimary,
-                                            onPressed: () async {
-                                              await viewmodel.submitBid(doc.id);
-                                            },
-                                          ),
                                   ),
                                 ],
                               ),

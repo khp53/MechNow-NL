@@ -166,34 +166,45 @@ class _MechanicHomeBodyState extends State<MechanicHomeBody> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              CustomTextFormField(
-                                hintText: "Type in your bid price *",
-                                isObscured: false,
-                                isDigit: false,
-                                isRequired: true,
-                                controller: widget.viewmodel.bidController,
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CustomTextFormField(
+                                  hintText: "Type in your bid price *",
+                                  isObscured: false,
+                                  isDigit: false,
+                                  isRequired: true,
+                                  controller:
+                                      widget.viewmodel.bidControllers[index],
+                                ),
                               ),
-                              const SizedBox(height: 10),
-                              SizedBox(
-                                child: widget.viewmodel.isLoading
-                                    ? CustomButton(
-                                        loading: true,
-                                        buttonText: "Submit Bid",
-                                        buttonColor: theme.colorScheme.primary,
-                                        textColor: theme.colorScheme.onPrimary,
-                                        onPressed: () {
-                                          //await widget.viewmodel.submitBid(doc.id);
-                                        },
-                                      )
-                                    : CustomButton(
-                                        buttonText: "Submit Bid",
-                                        buttonColor: theme.colorScheme.primary,
-                                        textColor: theme.colorScheme.onPrimary,
-                                        onPressed: () async {
-                                          await widget.viewmodel
-                                              .submitBid(doc.id);
-                                        },
-                                      ),
+                              const SizedBox(height: 5),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  child: widget.viewmodel.isLoading
+                                      ? CustomButton(
+                                          loading: true,
+                                          buttonText: "Submit Bid",
+                                          buttonColor:
+                                              theme.colorScheme.primary,
+                                          textColor:
+                                              theme.colorScheme.onPrimary,
+                                          onPressed: () {
+                                            //await widget.viewmodel.submitBid(doc.id);
+                                          },
+                                        )
+                                      : CustomButton(
+                                          buttonText: "Submit Bid",
+                                          buttonColor:
+                                              theme.colorScheme.primary,
+                                          textColor:
+                                              theme.colorScheme.onPrimary,
+                                          onPressed: () async {
+                                            await widget.viewmodel
+                                                .submitBid(doc.id, index);
+                                          },
+                                        ),
+                                ),
                               ),
                             ],
                           ),

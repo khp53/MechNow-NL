@@ -2,8 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hackathon_user_app/common/custom_snackbar.dart';
+import 'package:hackathon_user_app/dependencies/dependency_injection.dart';
 import 'package:hackathon_user_app/modules/bid_module/widgets/bid_confirm_page.dart';
 import 'package:hackathon_user_app/modules/viewmodel.dart';
+import 'package:hackathon_user_app/services/request_services/request_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -12,6 +14,7 @@ class BidViewmodel extends Viewmodel {
   BidViewmodel() {
     // Add your initialization code here
   }
+  RequestServices get _requestServices => dependency();
 
   fetchBidsSnapshot(String docId) {
     return FirebaseFirestore.instance
@@ -19,7 +22,6 @@ class BidViewmodel extends Viewmodel {
             'requests') // replace this with the actual date format you're using
         .doc(docId) // replace 'docId' with the actual document ID
         .collection("bid")
-        .where('status', isEqualTo: 'open')
         .snapshots();
   }
 
@@ -35,21 +37,18 @@ class BidViewmodel extends Viewmodel {
     String area,
     String phone,
   ) async {
-    var userBox = Hive.box('user');
-    var userId = userBox.get('user_id');
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+    //var userBox = Hive.box('user');
+    //var userId = userBox.get('user_id');
+    //DateTime now = DateTime.now();
+    //String formattedDate = DateFormat('yyyy-MM-dd').format(now);
     await FirebaseFirestore.instance
         .collection('requests')
-        .doc(userId) // replace 'userId' with the actual user ID
-        .collection(
-            formattedDate) // replace this with the actual date format you're using
         .doc(docId) // replace 'docId' with the actual document ID
         .update({
       'status': 'hired',
       'hiredMechanic': uid,
       'hiredAmount': amount
-    }).then((value) {
+    }).then((value) async {
       customSnackBar(
         title: "Success!",
         message: "You have hired $mechName!",
@@ -64,6 +63,8 @@ class BidViewmodel extends Viewmodel {
           phone: phone,
         ),
       );
+      await _requestServices.sendMechanicHireNoti(
+          hiredMechanic: uid, userName: "");
     });
   }
 

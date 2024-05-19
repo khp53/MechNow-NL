@@ -31,4 +31,31 @@ class NotificationViewmodel extends Viewmodel {
       );
     }
   }
+
+  checkLocationPermission() async {
+    // Check if notification permission is granted
+    var status = await Permission.location.status;
+    if (!status.isGranted) {
+      await requestLocationPermission();
+    } else {
+      // Permission is granted
+      Get.offAll(
+        () => const HomeView(),
+        transition: Transition.downToUp,
+      );
+    }
+  }
+
+  requestLocationPermission() async {
+    // Request notification permission
+    var newStatus = await Permission.location.request();
+    // Check if permission is granted
+    if (newStatus.isGranted) {
+      // Permission is granted
+      Get.offAll(
+        () => const HomeView(),
+        transition: Transition.downToUp,
+      );
+    }
+  }
 }

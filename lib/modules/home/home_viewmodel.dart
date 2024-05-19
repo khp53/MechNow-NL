@@ -12,14 +12,18 @@ import 'package:hackathon_user_app/services/user_services/user_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeViewmodel extends Viewmodel {
-  HomeViewmodel();
+  HomeViewmodel() {
+    getUserData();
+  }
   UserServices get _userServices => dependency();
   AuthServices get _authServices => dependency();
 
   bool _isMechanic = false;
   String _username = '';
   bool _isLoading = false;
-  TextEditingController bidController = TextEditingController();
+
+  List<TextEditingController> bidControllers =
+      List.generate(50, (index) => TextEditingController());
 
   bool get isMechanic => _isMechanic;
   set isMechanic(bool value) {
@@ -122,8 +126,8 @@ class HomeViewmodel extends Viewmodel {
     );
   }
 
-  submitBid(String docId) async {
-    if (bidController.text.isEmpty) {
+  submitBid(String docId, index) async {
+    if (bidControllers[index].text.isEmpty) {
       Get.snackbar(
         'Error',
         'Please enter your bid price',
@@ -141,7 +145,7 @@ class HomeViewmodel extends Viewmodel {
           .doc(docId)
           .collection('bid')
           .add({
-        'amount': bidController.text,
+        'amount': bidControllers[index].text,
         'userId': userId,
       }).then(
         (value) => Get.snackbar(

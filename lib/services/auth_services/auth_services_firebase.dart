@@ -81,9 +81,15 @@ class AuthServicesFirebase extends AuthServices {
           .set(user.toJson());
 
       var status = await Permission.notification.status;
+      var locationStatus = await Permission.location.status;
       if (!status.isGranted) {
         Get.to(
           () => const NotificationView(),
+          transition: Transition.downToUp,
+        );
+      } else if (!locationStatus.isGranted) {
+        Get.to(
+          () => const NotificationView(isLocation: true),
           transition: Transition.downToUp,
         );
       } else {
@@ -115,9 +121,15 @@ class AuthServicesFirebase extends AuthServices {
       var userBox = await Hive.openBox('user');
       userBox.put('user_id', credential.user!.uid);
       var status = await Permission.notification.status;
+      var locationStatus = await Permission.location.status;
       if (!status.isGranted) {
         Get.to(
           () => const NotificationView(),
+          transition: Transition.downToUp,
+        );
+      } else if (!locationStatus.isGranted) {
+        Get.to(
+          () => const NotificationView(isLocation: true),
           transition: Transition.downToUp,
         );
       } else {

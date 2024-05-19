@@ -54,4 +54,29 @@ class RequestServicesRest extends RequestServices {
     var name = await userBox.get('name') ?? '';
     return name;
   }
+
+  @override
+  sendMechanicHireNoti(
+      {required String hiredMechanic, required String userName}) async {
+    var name = await getName();
+    var data = {
+      'hiredMechanic': hiredMechanic,
+      'name': name.isEmpty ? 'User' : name,
+    };
+    try {
+      final response = await http.post(
+        Uri.parse('http://10.20.174.64:3000/api/request/accept'),
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode(data),
+      );
+
+      return response;
+    } catch (e) {
+      customSnackBar(
+        title: 'Alert!',
+        message: "Something went wrong, please try again later!",
+        bgColor: Colors.red,
+      );
+    }
+  }
 }

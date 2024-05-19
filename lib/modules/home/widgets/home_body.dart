@@ -23,17 +23,17 @@ class _HomeBodyState extends State<HomeBody> {
   void initState() {
     super.initState();
 
-    Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high,
-    ).then(
-      (value) => setState(() {
-        currentLocation = value;
-      }),
-    );
+    // Geolocator.getCurrentPosition(
+    //   desiredAccuracy: LocationAccuracy.high,
+    // ).then(
+    //   (value) => setState(() {
+    //     currentLocation = value;
+    //   }),
+    // );
     widget.viewmodel.isLoading = true;
     widget.viewmodel.getUserData().then((value) {
       widget.viewmodel.isLoading = false;
-      setState(() {});
+      //setState(() {});
     });
   }
 
@@ -120,7 +120,7 @@ class _HomeBodyState extends State<HomeBody> {
                     onTap: () {
                       Get.to(
                         () => PlacePicker(
-                          apiKey: "YOUR_API_KEY",
+                          apiKey: "AIzaSyBqnVfSizkjnUTbX-VKIDQrkmLR0DKxwrQ",
                           onPlacePicked: (result) {
                             Get.to(
                               () => FindMechanicView(
@@ -132,9 +132,9 @@ class _HomeBodyState extends State<HomeBody> {
                               mapsLoaded = false;
                             });
                           },
-                          initialPosition: LatLng(
-                            currentLocation!.latitude,
-                            currentLocation!.longitude,
+                          initialPosition: const LatLng(
+                            47.57247,
+                            -52.7358873,
                           ),
                           hintText: "Find a place ...",
                           searchingText: "Please wait ...",
