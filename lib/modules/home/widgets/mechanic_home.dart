@@ -172,14 +172,26 @@ class _MechanicHomeBodyState extends State<MechanicHomeBody> {
                               ),
                               const SizedBox(height: 10),
                               SizedBox(
-                                  child: CustomButton(
-                                buttonText: "Submit Bid",
-                                buttonColor: theme.colorScheme.primary,
-                                textColor: theme.colorScheme.onPrimary,
-                                onPressed: () async {
-                                  await widget.viewmodel.submitBid(doc.id);
-                                },
-                              )),
+                                child: widget.viewmodel.isLoading
+                                    ? CustomButton(
+                                        loading: true,
+                                        buttonText: "Submit Bid",
+                                        buttonColor: theme.colorScheme.primary,
+                                        textColor: theme.colorScheme.onPrimary,
+                                        onPressed: () {
+                                          //await widget.viewmodel.submitBid(doc.id);
+                                        },
+                                      )
+                                    : CustomButton(
+                                        buttonText: "Submit Bid",
+                                        buttonColor: theme.colorScheme.primary,
+                                        textColor: theme.colorScheme.onPrimary,
+                                        onPressed: () async {
+                                          await widget.viewmodel
+                                              .submitBid(doc.id);
+                                        },
+                                      ),
+                              ),
                             ],
                           ),
                         );

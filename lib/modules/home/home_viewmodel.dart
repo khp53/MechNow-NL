@@ -132,6 +132,7 @@ class HomeViewmodel extends Viewmodel {
         colorText: Get.theme.colorScheme.onError,
       );
     } else {
+      isLoading = true;
       var userBox = await Hive.openBox('user');
       var userId = await userBox.get('user_id');
       // submit bid
@@ -151,6 +152,7 @@ class HomeViewmodel extends Viewmodel {
           colorText: Get.theme.colorScheme.onSecondary,
         ),
       );
+      isLoading = false;
     }
   }
 }
