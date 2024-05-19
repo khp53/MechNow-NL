@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -119,5 +120,37 @@ class HomeViewmodel extends Viewmodel {
       ),
       transition: Transition.downToUp,
     );
+  }
+
+  submitBid(String docId) async {
+    if (bidController.text.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'Please enter your bid price',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Get.theme.colorScheme.error,
+        colorText: Get.theme.colorScheme.onError,
+      );
+    } else {
+      var userBox = await Hive.openBox('user');
+      var userId = await userBox.get('user_id');
+      // submit bid
+      await FirebaseFirestore.instance
+          .collection('requests')
+          .doc(docId)
+          .collection('bid')
+          .add({
+        'amount': bidController.text,
+        'userId': userId,
+      }).then(
+        (value) => Get.snackbar(
+          'Success',
+          'Bid submitted successfully',
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Get.theme.colorScheme.secondary,
+          colorText: Get.theme.colorScheme.onSecondary,
+        ),
+      );
+    }
   }
 }

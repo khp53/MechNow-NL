@@ -103,8 +103,6 @@ class _MechanicHomeBodyState extends State<MechanicHomeBody> {
               StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('requests')
-                    .doc("rvCPPMchSphXJo1GxpsgfSfbVbL2")
-                    .collection("2024-05-19")
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
@@ -168,7 +166,7 @@ class _MechanicHomeBodyState extends State<MechanicHomeBody> {
                               CustomTextFormField(
                                 hintText: "Type in your bid price *",
                                 isObscured: false,
-                                isDigit: true,
+                                isDigit: false,
                                 isRequired: true,
                                 controller: widget.viewmodel.bidController,
                               ),
@@ -178,7 +176,9 @@ class _MechanicHomeBodyState extends State<MechanicHomeBody> {
                                 buttonText: "Submit Bid",
                                 buttonColor: theme.colorScheme.primary,
                                 textColor: theme.colorScheme.onPrimary,
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await widget.viewmodel.submitBid(doc.id);
+                                },
                               )),
                             ],
                           ),
