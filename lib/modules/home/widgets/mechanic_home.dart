@@ -1,11 +1,24 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hackathon_user_app/common/custom_bottomsheet.dart';
 import 'package:hackathon_user_app/modules/home/home_viewmodel.dart';
+import 'package:hackathon_user_app/modules/user_location/user_location.dart';
 
-class MechanicHomeBody extends StatelessWidget {
+class MechanicHomeBody extends StatefulWidget {
   const MechanicHomeBody({super.key, required this.viewmodel});
   final HomeViewmodel viewmodel;
+
+  @override
+  State<MechanicHomeBody> createState() => _MechanicHomeBodyState();
+}
+
+class _MechanicHomeBodyState extends State<MechanicHomeBody> {
+  @override
+  void initState() {
+    super.initState();
+    //widget.viewmodel.getAllOpenRequests();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +59,7 @@ class MechanicHomeBody extends StatelessWidget {
                       ),
                       onTap: () {
                         Get.back();
-                        viewmodel.logout();
+                        widget.viewmodel.logout();
                       },
                     ),
                   ],
@@ -61,6 +74,72 @@ class MechanicHomeBody extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "Welcome back!",
+              style: theme.textTheme.headlineMedium!.copyWith(
+                fontSize: 24,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              "Here are the latest requests",
+              style: theme.textTheme.headlineMedium!.copyWith(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 20),
+            StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('requests')
+                  .doc("rvCPPMchSphXJo1GxpsgfSfbVbL2")
+                  .collection("2024-05-19")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else if (snapshot.hasData) {
+                  return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      var doc = snapshot.data!.docs[index];
+                      return Card(
+                        child: ListTile(
+                          onTap: () => Get.to(
+                            () => NavigationPage(
+                              lat: double.parse(
+                                  doc['userLatLang'].toString().split(',')[0]),
+                              long: double.parse(
+                                  doc['userLatLang'].toString().split(',')[1]),
+                              jobArea: '',
+                            ),
+                            transition: Transition.downToUp,
+                          ),
+                          title: Text(doc['name']),
+                          subtitle: Text(doc['note']),
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return const Center(
+                    child: Text('No requests found'),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -10,9 +10,7 @@ import 'package:hackathon_user_app/services/user_services/user_services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class HomeViewmodel extends Viewmodel {
-  HomeViewmodel() {
-    //getUserData();
-  }
+  HomeViewmodel();
   UserServices get _userServices => dependency();
   AuthServices get _authServices => dependency();
 
