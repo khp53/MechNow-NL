@@ -115,10 +115,11 @@ class HomeViewmodel extends Viewmodel {
   }
 
   logout() async {
-    await _authServices.signOut();
     // clean local db
     var userBox = await Hive.openBox('user');
+    await userBox.delete('role');
     await userBox.clear();
+    await _authServices.signOut();
     Get.offAll(
       () => const AuthView(
         isLogin: true,

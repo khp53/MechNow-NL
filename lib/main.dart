@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:hackathon_user_app/firebase_options.dart';
+import 'package:hackathon_user_app/modules/home/home_view.dart';
 import 'package:hackathon_user_app/modules/onboard/onboard_view.dart';
 import 'package:hackathon_user_app/dependencies/dependency_injection.dart'
     as di;
@@ -17,8 +21,34 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late StreamSubscription<User?> user;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    user.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -63,7 +93,9 @@ class MyApp extends StatelessWidget {
           brightness: Brightness.light,
         ).copyWith(background: Colors.white, surface: Colors.white),
       ),
-      home: const OnboardView(),
+      home: FirebaseAuth.instance.currentUser == null
+          ? const OnboardView()
+          : const HomeView(),
     );
   }
 }
