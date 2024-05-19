@@ -5,6 +5,7 @@ import 'package:hackathon_user_app/common/custom_bottomsheet.dart';
 import 'package:hackathon_user_app/common/custom_button.dart';
 import 'package:hackathon_user_app/common/custom_text_field.dart';
 import 'package:hackathon_user_app/modules/home/home_viewmodel.dart';
+import 'package:hackathon_user_app/modules/home/widgets/hired_jobs.dart';
 import 'package:hackathon_user_app/modules/user_location/user_location.dart';
 
 class MechanicHomeBody extends StatefulWidget {
@@ -45,14 +46,16 @@ class _MechanicHomeBodyState extends State<MechanicHomeBody> {
                 theme,
                 Column(
                   children: [
-                    // ListTile(
-                    //   title: Text('Profile'),
-                    //   leading: Icon(Icons.person),
-                    //   onTap: () {
-                    //     Get.back();
-                    //     Get.toNamed('/profile');
-                    //   },
-                    // ),
+                    ListTile(
+                      title: const Text('See hired jobs'),
+                      leading:
+                          Icon(Icons.work, color: theme.colorScheme.primary),
+                      onTap: () {
+                        Get.back();
+                        Get.to(() => HiredJob(viewmodel: widget.viewmodel),
+                            transition: Transition.downToUp);
+                      },
+                    ),
                     ListTile(
                       title: const Text('Logout'),
                       leading: Icon(
