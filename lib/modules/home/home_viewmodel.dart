@@ -32,10 +32,11 @@ class HomeViewmodel extends Viewmodel {
     turnIdle();
   }
 
+  // ignore: unnecessary_getters_setters
   bool get isLoading => _isLoading;
   set isLoading(bool value) {
     _isLoading = value;
-    turnIdle();
+    //turnIdle();
   }
 
   checkUserType() async {
