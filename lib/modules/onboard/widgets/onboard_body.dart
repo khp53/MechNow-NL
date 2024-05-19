@@ -27,13 +27,30 @@ class OnboardBody extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                'MechNow NL',
-                style: theme.textTheme.headlineMedium!.copyWith(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w900,
-                ),
+              padding: const EdgeInsets.only(
+                left: 10.0,
+                right: 20.0,
+                top: 5.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 70,
+                    width: 70,
+                    child: Image.asset(
+                      'assets/images/logo.png',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Text(
+                    'MechNow NL',
+                    style: theme.textTheme.headlineMedium!.copyWith(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                ],
               ),
             ),
             Padding(

@@ -9,6 +9,6 @@ abstract class AuthServices {
     required String childRole,
   });
   signInWithEmailAndPassword(String email, String password);
-  //Future<User> signInWithGoogle();
+  signInWithGoogle();
   signOut();
 }

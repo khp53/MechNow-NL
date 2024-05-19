@@ -65,4 +65,10 @@ class AuthViewmodel extends Viewmodel {
       isLoading = false;
     }
   }
+
+  signInWithGoogle() async {
+    isLoading = true;
+    await _authServices.signInWithGoogle();
+    isLoading = false;
+  }
 }

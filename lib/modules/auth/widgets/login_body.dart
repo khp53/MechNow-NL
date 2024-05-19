@@ -20,14 +20,25 @@ class LoginBody extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 40),
-                  child: Center(
-                    child: Text(
-                      'MechNow NL',
-                      style: theme.textTheme.headlineMedium!.copyWith(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w900,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
+                      // Text(
+                      //   'MechNow NL',
+                      //   style: theme.textTheme.headlineMedium!.copyWith(
+                      //     fontSize: 28,
+                      //     fontWeight: FontWeight.w900,
+                      //   ),
+                      // ),
+                    ],
                   ),
                 ),
                 const SizedBox(
@@ -107,47 +118,49 @@ class LoginBody extends StatelessWidget {
                 const SizedBox(
                   height: 25,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 1,
-                      width: 100,
-                      color: theme.colorScheme.secondary,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      'Or login with',
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        color: theme.colorScheme.secondary,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      height: 1,
-                      width: 100,
-                      color: theme.colorScheme.secondary,
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                CustomButton(
-                  buttonColor: const Color(0xFFEEEEEE),
-                  textColor: theme.colorScheme.onSurface,
-                  buttonText: 'Google',
-                  onPressed: () {},
-                  icon: Image.asset(
-                    'assets/images/Google.png',
-                    width: 20,
-                    height: 20,
-                  ),
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: [
+                //     Container(
+                //       height: 1,
+                //       width: 100,
+                //       color: theme.colorScheme.secondary,
+                //     ),
+                //     const SizedBox(
+                //       width: 10,
+                //     ),
+                //     Text(
+                //       'Or login with',
+                //       style: theme.textTheme.bodyMedium!.copyWith(
+                //         color: theme.colorScheme.secondary,
+                //       ),
+                //     ),
+                //     const SizedBox(
+                //       width: 10,
+                //     ),
+                //     Container(
+                //       height: 1,
+                //       width: 100,
+                //       color: theme.colorScheme.secondary,
+                //     ),
+                //   ],
+                // ),
+                // const SizedBox(
+                //   height: 25,
+                // ),
+                // CustomButton(
+                //   buttonColor: const Color(0xFFEEEEEE),
+                //   textColor: theme.colorScheme.onSurface,
+                //   buttonText: 'Google',
+                //   onPressed: () async {
+                //     await viewmodel.signInWithGoogle();
+                //   },
+                //   icon: Image.asset(
+                //     'assets/images/Google.png',
+                //     width: 20,
+                //     height: 20,
+                //   ),
+                // ),
                 const SizedBox(
                   height: 30,
                 ),
