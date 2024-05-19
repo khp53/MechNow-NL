@@ -170,6 +170,8 @@ class BidBody extends StatelessWidget {
                               bid['userId'],
                               bid['amount'],
                               data['name'],
+                              data['area'],
+                              data['phone'],
                             );
                           },
                         ),
