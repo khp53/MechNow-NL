@@ -120,7 +120,7 @@ class _HomeBodyState extends State<HomeBody> {
                     onTap: () {
                       Get.to(
                         () => PlacePicker(
-                          apiKey: "AIzaSyBqnVfSizkjnUTbX-VKIDQrkmLR0DKxwrQ",
+                          apiKey: "YOUR_API_KEY",
                           onPlacePicked: (result) {
                             Get.to(
                               () => FindMechanicView(
@@ -155,7 +155,7 @@ class _HomeBodyState extends State<HomeBody> {
                       duration: const Duration(milliseconds: 300),
                       curve: Curves.easeInOut,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF4F4F4),
+                        color: theme.colorScheme.primary.withOpacity(0.08),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
