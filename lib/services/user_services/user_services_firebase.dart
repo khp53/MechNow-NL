@@ -21,7 +21,7 @@ class UserServicesFirebase extends UserServices {
         await userBox.put('phoneNumber', data['phone']);
         await userBox.put('area', data['area']);
         await userBox.put('role', data['role']);
-        print(data['role']);
+        debugPrint(data['role'].toString());
         await userBox.put('email', data['email']);
       },
       onError: (e) => customSnackBar(

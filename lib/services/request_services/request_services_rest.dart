@@ -25,7 +25,7 @@ class RequestServicesRest extends RequestServices {
       'note': note,
       'requestType': requestType,
     };
-    print(data);
+    debugPrint(data.toString());
     try {
       final response = await http.post(
         Uri.parse('http://10.20.174.64:3000/api/request'),
