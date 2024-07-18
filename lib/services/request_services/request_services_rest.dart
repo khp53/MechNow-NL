@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 class RequestServicesRest extends RequestServices {
-  String url = 'http://10.20.174.64/api/request';
+  String url = 'http://192.168.2.217/api/request';
   @override
   sendMechanicRequest({
     required String userLatLang,
