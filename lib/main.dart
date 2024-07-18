@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/route_manager.dart';
 import 'package:hackathon_user_app/firebase_options.dart';
 import 'package:hackathon_user_app/modules/home/home_view.dart';
@@ -18,6 +19,7 @@ Future<void> main() async {
   );
   di.init();
   await Hive.initFlutter();
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
@@ -83,15 +85,13 @@ class _MyAppState extends State<MyApp> {
           primary: Color(0xFFFFC801),
           secondary: Color(0xFFA1A6B0),
           surface: Colors.white,
-          background: Colors.white,
           error: Colors.red,
           onPrimary: Colors.black,
           onSecondary: Colors.black,
           onSurface: Colors.black,
-          onBackground: Colors.black,
           onError: Colors.white,
           brightness: Brightness.light,
-        ).copyWith(background: Colors.white, surface: Colors.white),
+        ).copyWith(surface: Colors.white),
       ),
       home: FirebaseAuth.instance.currentUser == null
           ? const OnboardView()

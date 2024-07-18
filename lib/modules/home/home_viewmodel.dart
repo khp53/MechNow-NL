@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hackathon_user_app/dependencies/dependency_injection.dart';
@@ -22,6 +23,7 @@ class HomeViewmodel extends Viewmodel {
   bool _isMechanic = false;
   String _username = '';
   bool _isLoading = false;
+  String _apiKey = '';
 
   List<TextEditingController> bidControllers =
       List.generate(50, (index) => TextEditingController());
@@ -43,6 +45,12 @@ class HomeViewmodel extends Viewmodel {
   set isLoading(bool value) {
     _isLoading = value;
     //turnIdle();
+  }
+
+  String get apiKey => _apiKey;
+  set apiKey(String value) {
+    _apiKey = dotenv.env['GOOGLE_API']!;
+    turnIdle();
   }
 
   checkUserType() async {
